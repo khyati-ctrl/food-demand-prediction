@@ -9,7 +9,8 @@ Issue 3 – discount not applied to total_price
   Raw : total_price ignores discount_applied rate
   Fix : Added discounted_price column (actual amount paid)
 
- Exploratory Data Analysis
+EXPLORATORY DATA ANALYSIS
+
 a) Sales Demand vs Time:Visible Trends
 
 We plotted total quantity ordered every month across 2011–2012
