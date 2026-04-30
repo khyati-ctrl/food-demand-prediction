@@ -1,44 +1,56 @@
-Issues in data:
-Issue 1 – day_of_week encoding
-  Raw : Sunday=6, Monday=0 (off by 1 vs pandas)
-  Fix : Recomputed from timestamp → (pandas_dow + 1) % 7
-Issue 2 – season encoding
-  Raw : Non-standard sliding-window boundaries (~100k mismatches)
-  Fix : Standard meteorological seasons (3-month blocks)
-Issue 3 – discount not applied to total_price
-  Raw : total_price ignores discount_applied rate
-  Fix : Added discounted_price column (actual amount paid)
+# Swiggy Inventory Demand Forecaster
 
-EXPLORATORY DATA ANALYSIS
+> 📄 **[Click here to read the full Project Presentation & Detailed Write-up]([https://docs.google.com/document/d/1zM-Qt9T4IwRA5NfnVQ-JE8fMAg5tpQuHO7loOBqipnE/edit?usp=sharing])**
 
-a) Sales Demand vs Time:Visible Trends
+## 📌 Project Overview
+This project is an end-to-end Machine Learning pipeline designed to forecast monthly inventory demand for various menu items across Swiggy’s fulfillment centers. Built as a comprehensive data science lifecycle project for the **SRM Insider Club**, it transitions raw, highly volatile daily transactional data into actionable macro-level business forecasts.
 
-We plotted total quantity ordered every month across 2011–2012
-Observation 1 (Trend): Orders in 2012 are clearly higher than 2011. Why? Because the platform was new in 2011 as more people discovered the app and had good experiences, the user base kept growing naturally
+We engineered a realistic synthetic dataset featuring weather impacts, promotional boosts, and a non-linear "viral marketing anomaly" to rigorously test and compare baseline statistical models against advanced tree-based algorithms. 
 
+## ✨ Key Features
+*   **Synthetic Data Generation:** A custom robust data pipeline simulating 12,000 real-world Swiggy transactions, incorporating business logic for weather (rain spikes), day-of-week trends, and discount code application.
+*   **Exploratory Data Analysis (EDA):** Comprehensive visualizations uncovering temporal order patterns and isolating non-linear sales anomalies.
+*   **Algorithmic Showdown:** A competitive modeling environment comparing Linear Regression and Random Forest against an XGBoost Regressor.
+*   **Interactive Frontend Prototype:** A locally hosted Streamlit dashboard allowing warehouse managers to generate real-time inventory predictions without interacting with the codebase.
 
-b) Hourly, Daily and Seasonal Patterns
+## 🛠️ Tech Stack
+*   **Data Manipulation & Engineering:** `pandas`, `numpy`
+*   **Data Visualization:** `matplotlib`, `seaborn`
+*   **Machine Learning:** `scikit-learn`, `xgboost`
+*   **Model Deployment/Frontend:** `streamlit`, `joblib`
 
-Observation 2 (Monthly): Orders peak around August–September 2012 and dip every December. Why? Summer means holidays, people outdoors, nobody wants to cook so they order more. December is the opposite cold weather, families cook at home, festive season reduces delivery demand
-Observation 3 (Seasonal): Summer dominates with 2,16,731 total orders more than DOUBLE Winter's 95,776. This directly tells us season must be a feature in our ML model because it alone can shift demand by over 1 lakh orders
+## 🚀 How to Run the Project Locally
 
+### 1. Clone the Repository
+git clone [https://github.com/yourusername/swiggy-demand-forecaster.git](https://github.com/yourusername/swiggy-demand-forecaster.git)
+cd swiggy-demand-forecaster
 
-c) Autocorrelation — Does one month affect the next?
+### 2. Install Dependencies
+Ensure you have Python installed, then run:
+pip install pandas numpy matplotlib seaborn scikit-learn xgboost streamlit joblib
 
-Yes a high sales month is almost always followed by another high month
-ACF would show strong correlation at Lag 1 (previous month predicts current month) and Lag 12 (same month last year predicts this year)
-This is exactly why we created lag features in the feature engineering step
+### 3. Generate Data and Train the Model
+Run the Jupyter Notebooks in sequential order to generate the dataset, view the EDA, and train the Machine Learning models.
+Data_synthesis.ipynb
+EDA.ipynb
+Machine_Learning.ipynb (Running this will export the swiggy_xgboost_model.joblib file required for the app).
 
+### 4. Launch the Streamlit Web App
+Once the model is trained and saved, launch the interactive frontend dashboard:
+streamlit run app.py
 
-d) Anomalies and Irregular Spikes
+## 📂 Project Structure
+* ├── data/
+* │   └── swiggy_data_final.csv         # Generated dataset
+* ├── notebooks/
+* │   ├── Data_synthesis.ipynb       # Synthetic data logic
+* │   ├── EDA.ipynb                  # Visual business insights
+* │   └── Machine_Learning.ipynb     # ML pipeline and model showdown
+* ├── app.py                            # Streamlit frontend application
+* ├── swiggy_xgboost_model.joblib       # Serialized XGBoost model
+* └── README.md
 
-Observation 4 (Anomaly): A big negative spike appears in late 2011 in the residual graph orders dropped ~4000 below what was expected for several months
-Possible reasons: competitor launched, app outage, bad weather, price hike
-Key insight: Our ML model MUST include weather and external features otherwise it will predict normal demand even during crises
-
-
-e) Decomposition — Trend, Seasonality, Residual
-
-Trend: Smooth upward line from ~20,000 to ~41,000/month proves the business is genuinely growing regardless of season
-Seasonal: Same peaks and dips repeat every year like clockwork — summer always gets +2000 boost, winter always drops -1500 — model can learn this perfectly
-Residual: Everything the trend and season can't explain — random shocks, surprise events. Late 2011 cluster of -4000 residuals = something went wrong outside normal patterns
+## 👥 The Team
+* Jaswanth: Lead Data Engineer (Architecture & Synthetic Generation)
+* Sneha: Lead Data Analyst (EDA & Anomaly Detection)
+* Khyati: Lead Machine Learning Engineer and Frontend Developer (Model Training and Frontend Development)
