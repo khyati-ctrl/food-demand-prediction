@@ -1,6 +1,7 @@
 # Swiggy Inventory Demand Forecaster
 
-> 📄 **[Click here to read the full Project Presentation & Detailed Write-up]([https://docs.google.com/document/d/1zM-Qt9T4IwRA5NfnVQ-JE8fMAg5tpQuHO7loOBqipnE/edit?usp=sharing])**
+> 📄 **Click here to read the full Project Presentation & Detailed Write-up:
+https://docs.google.com/document/d/1zM-Qt9T4IwRA5NfnVQ-JE8fMAg5tpQuHO7loOBqipnE/edit?usp=sharing**
 
 ## 📌 Project Overview
 This project is an end-to-end Machine Learning pipeline designed to forecast monthly inventory demand for various menu items across Swiggy’s fulfillment centers. Built as a comprehensive data science lifecycle project for the **SRM Insider Club**, it transitions raw, highly volatile daily transactional data into actionable macro-level business forecasts.
