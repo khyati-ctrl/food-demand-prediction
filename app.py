@@ -41,8 +41,7 @@ if st.button("Generate Forecast"):
     # Create a dataframe exactly like the one the model was trained on
     input_data = pd.DataFrame({
         'Product_Name': [selected_product],
-        'lag_1_month': [previous_sales],
-        'Month': [selected_month]
+        'lag_1_month': [previous_sales]
     })
     
     # Convert text to categorical data type for XGBoost
