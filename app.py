@@ -33,9 +33,6 @@ selected_product = st.selectbox("Select Menu Item", product_list)
 # Number input for the lag feature (Previous Month's Sales)
 previous_sales = st.number_input("Previous Month's Sales Volume (Units)", min_value=0, value=100)
 
-# Add a month selector (1 for Jan, 12 for Dec)
-selected_month = st.selectbox("Select Forecast Month", range(1, 13))
-
 # 5. Prediction Logic
 if st.button("Generate Forecast"):
     # Create a dataframe exactly like the one the model was trained on
